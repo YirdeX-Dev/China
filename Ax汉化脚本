@@ -245,7 +245,7 @@ local Translations = {
         ["Show Only My Team"]="仅显示自己的队伍",
         ["Show Only Enemy Team"]="仅显示敌方队伍",
         ["Trail"]="跟踪",
-        ["Ink Game | by AlexScriptX"]="ink Game | by Alex CN:<font color=\"#7FC8F0\">Y</font><font color=\"#74C0EB\">F</font><font color=\"#69B8E6\">T</font><font color=\"#5EB0E1\">X</font>",
+        ["Ink Game | by AlexScriptX"]="ink Game | by Alex 汉化者:YirdeX",
         ["Manual"]="有失误",
         ["Perfect"]="完美",
         ["Keep Playing"]="继续游戏",
