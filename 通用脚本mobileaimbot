@@ -1,0 +1,128 @@
+local RunScriptFirst = false
+
+local Translations = {
+["Aimbot Settings"] = "自瞄设置",
+["Enable Aimbot"] = "启用自瞄",
+["Mode"] = "模式",
+["Smoothness"] = "平滑度",
+["Smooth Amount"] = "平滑数值",
+["Team Check"] = "队伍检测",
+["Friend Check"] = "好友检测",
+["Legit"] = "合法模式",
+["Rage"] = "狂暴模式",
+["ESP Settings"] = "透视设置",
+["Master ESP Toggle"] = "主透视开关",
+["Name ESP"] = "名称透视",
+["Health Bar"] = "血条透视",
+["Distance ESP"] = "距离透视",
+["Skeleton ESP"] = "骨骼透视",
+["Tracers"] = "追踪线",
+["AIM"] = "自瞄",
+["Trigger Bot"] = "自动触发",
+["Enable Trigger Bot"] = "启用自动触发",
+["Trigger Delay"] = "触发延迟",
+["Max Distance"] = "最大距离",
+["Wall Check"] = "穿墙检测",
+["Show FOV Circle"] = "显示视野范围圈",
+["FOV Radius"] = "视野半径",
+["Target Part"] = "目标部位",
+["Head"] = "头部",
+["Chest"] = "胸部",
+["Random"] = "随机",
+["Prediction"] = "预测",
+["Enable Prediction"] = "启用预测",
+["Prediction Amount"] = "预测数值",
+["Friend Color Override"] = "好友颜色覆盖",
+["Character"] = "角色",
+["Noclip"] = "穿墙",
+["Infinite Jump"] = "无限跳跃",
+["SpinBot"] = "自旋",
+["Spin Speed"] = "自旋速度",
+["Anti-Void"] = "防虚空",
+["Double Tap Teleport"] = "双击传送",
+["Visual"] = "视觉",
+["Fullbright"] = "全亮度",
+["FOV Changer"] = "视野修改器",
+["Game"] = "游戏",
+["Remove Recoil & Spread"] = "消除后坐力与散布",
+["Ultra FPS Booster"] = "超高帧率增强",
+["Rejoin Server"] = "重新加入服务器",
+["Instant Interact"] = "快速交互"
+}
+local function translateText(text)
+    if not text or type(text) ~= "string" then return text end
+    if Translations[text] then return Translations[text] end
+    for en, cn in pairs(Translations) do
+        if text:find(en) then return text:gsub(en, cn) end
+    end
+    return text
+end
+
+local function translateAllElements()
+    local function translateGui(gui)
+        for _, element in ipairs(gui:GetDescendants()) do
+            if element:IsA("TextLabel") or element:IsA("TextButton") or element:IsA("TextBox") then
+                local currentText = element.Text
+                if currentText and currentText ~= "" then
+                    local translatedText = translateText(currentText)
+                    if translatedText ~= currentText then
+                        element.Text = translatedText
+                    end
+                end
+            end
+        end
+    end
+    
+    pcall(translateGui, game:GetService("CoreGui"))
+end
+
+local function setupListener()
+    local function connectToGui(gui)
+        gui.DescendantAdded:Connect(function(descendant)
+            if descendant:IsA("TextLabel") or descendant:IsA("TextButton") or descendant:IsA("TextBox") then
+                local currentText = descendant.Text
+                if currentText and currentText ~= "" then
+                    local translatedText = translateText(currentText)
+                    if translatedText ~= currentText then
+                        descendant.Text = translatedText
+                    end
+                end
+                
+                descendant:GetPropertyChangedSignal("Text"):Connect(function()
+                    local newText = descendant.Text
+                    if newText and newText ~= "" then
+                        local translatedText = translateText(newText)
+                        if translatedText ~= newText then
+                            descendant.Text = translatedText
+                        end
+                    end
+                end)
+            end
+        end)
+    end
+    
+    pcall(connectToGui, game:GetService("CoreGui"))
+end
+
+local function startTranslation()
+    translateAllElements()
+    setupListener()
+end
+
+local function loadScript()
+    local success, err = pcall(function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/verund638/ArthurHub/refs/heads/main/mobileaimbot"))()
+    end)
+
+    if not success then
+        warn("加载失败:", err)
+    end
+end
+
+if RunScriptFirst then
+    loadScript()
+    startTranslation()
+else
+    startTranslation()
+    loadScript()
+end
