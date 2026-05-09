@@ -2,7 +2,7 @@ local RunScriptFirst = false
 
 local Translations = {
 ["Achaotic"] = "混沌",
-["Blade Ball V1.267"] = "<font color='#33FFEE'>Y</font><font color='#33EEFF'>i</font><font color='#33DDFF'>r</font><font color='#33CCFF'>d</font><font color='#33BBFF'>e</font><font color='#33AAFF'>X</font><font color='#3399FF'>汉</font><font color='#3388FF'>化</font>",
+["Blade Ball V1.267"] = "YirdeX汉化",
 ["General"] = "通用",
 ["Combat"] = "战斗",
 ["Visuals"] = "视觉",
