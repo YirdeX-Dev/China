@@ -1,0 +1,114 @@
+local RunScriptFirst = false
+
+local Translations = {
+["valout Emot"] = "valout表情",
+["by lolytadev"] = "YirdeX汉化",
+["Catálogo"] = "目录",
+["Salvo"] = "已保存",
+["Favoritos"] = "收藏",
+["Sinc"] = "同步",
+["AJUSTES DE PLAY"] = "播放设置",
+["Configure velocidade, loop e pesos"] = "配置速度、循环和权重",
+["Força do Emote (Weight)"] = "表情强度（权重）",
+["Fade In (Entrada)"] = "淡入（进入）",
+["Fade Out (Saída)"] = "淡出（退出）",
+["Sincronizar Mais Próximo"] = "同步最近玩家",
+["Auto-Sincronizar (Sempre copiar mais próximo)"] = "自动同步（始终复制最近玩家）",
+["SINCRONIA INDIVIDUAL"] = "单独同步",
+["Atualizar Lista"] = "更新列表",
+["Pesquisar emotes no catálogo..."] = "在目录中搜索表情...",
+["Atualizar"] = "刷新",
+["Relevância"] = "相关性",
+["Ord"] = "排序",
+["Mais Vendidos"] = "销量最高",
+["Play"] = "播放",
+["Salvar"] = "保存",
+["Anterior"] = "上一页",
+["Próxima"] = "下一页",
+["Página 1"] = "第1页",
+["Resetar Ajustes de Fábrica"] = "恢复出厂设置",
+["Parar ao se mover"] = "移动时停止",
+["Repetir (Loop)"] = "重复（循环）",
+["Parar outras playing"] = "停止其他播放",
+["Foco"] = "聚焦",
+["Reflexos"] = "反射",
+["Velocidade (Speed)"] = "速度",
+["Início (TimePosition)"] = "起始位置（时间轴）",
+}
+local function translateText(text)
+    if not text or type(text) ~= "string" then return text end
+    if Translations[text] then return Translations[text] end
+    for en, cn in pairs(Translations) do
+        if text:find(en) then return text:gsub(en, cn) end
+    end
+    return text
+end
+
+local function translateAllElements()
+    local function translateGui(gui)
+        for _, element in ipairs(gui:GetDescendants()) do
+            if element:IsA("TextLabel") or element:IsA("TextButton") or element:IsA("TextBox") then
+                local currentText = element.Text
+                if currentText and currentText ~= "" then
+                    local translatedText = translateText(currentText)
+                    if translatedText ~= currentText then
+                        element.Text = translatedText
+                    end
+                end
+            end
+        end
+    end
+    
+    pcall(translateGui, game:GetService("CoreGui"))
+end
+
+local function setupListener()
+    local function connectToGui(gui)
+        gui.DescendantAdded:Connect(function(descendant)
+            if descendant:IsA("TextLabel") or descendant:IsA("TextButton") or descendant:IsA("TextBox") then
+                local currentText = descendant.Text
+                if currentText and currentText ~= "" then
+                    local translatedText = translateText(currentText)
+                    if translatedText ~= currentText then
+                        descendant.Text = translatedText
+                    end
+                end
+                
+                descendant:GetPropertyChangedSignal("Text"):Connect(function()
+                    local newText = descendant.Text
+                    if newText and newText ~= "" then
+                        local translatedText = translateText(newText)
+                        if translatedText ~= newText then
+                            descendant.Text = translatedText
+                        end
+                    end
+                end)
+            end
+        end)
+    end
+    
+    pcall(connectToGui, game:GetService("CoreGui"))
+end
+
+local function startTranslation()
+    translateAllElements()
+    setupListener()
+end
+
+local function loadScript()
+    local success, err = pcall(function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Daivd977/Coquettekk/refs/heads/main/valout%20Emot"))()
+    end)
+
+    if not success then
+        warn("加载失败:", err)
+    end
+end
+
+if RunScriptFirst then
+    loadScript()
+    startTranslation()
+else
+    startTranslation()
+    loadScript()
+end
