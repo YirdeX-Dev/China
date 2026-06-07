@@ -1,0 +1,253 @@
+local RunScriptFirst = false
+
+local Translations = {
+["Due to The Code being big u gotta make a file for it and send the person to u want!"] = "由于代码体积较大，你需要新建文件并发送给对应人员！",
+["Config CLICK HERE"] = "配置 点击此处",
+["Config Owner Name"] = "配置所有者名称",
+["Copy Config Code"] = "复制配置代码",
+["Import Code"] = "导入代码",
+["username"] = "用户名",
+["paste code here"] = "在此粘贴代码",
+["Charge Aimbot"] = "蓄力自瞄",
+["animation of block"] = "格挡动画",
+["Fake Block"] = "假格挡",
+["device spoofer"] = "设备伪装",
+["Select Device"] = "选择设备",
+["Optimize stuffs ig"] = "优化相关设置",
+["Low Quality Texture"] = "低质量纹理",
+["Survivor ESP"] = "幸存者透视",
+["Killer ESP"] = "杀手透视",
+["Item ESP"] = "物品透视",
+["Generator ESP"] = "发电机透视",
+["Jane Doe Document ESP"] = "无名氏文件透视",
+["Killer's Auto Block"] = "杀手自动格挡",
+["Range (1-20)"] = "范围（1-20）",
+["Killer Mode"] = "杀手模式",
+["Noli"] = "诺利",
+["foolsss"] = "弗尔斯",
+["Noli VoidRush Controller"] = "诺利 虚空冲刺控制器",
+["CoolKid"] = "酷小子",
+["red tomato"] = "红番茄",
+["c00lkidd Animation Walkspeed"] = "酷小子 动画移速",
+["Puzzle Delay (Wait time)"] = "谜题延迟（等待时间）",
+["Auto Generator Puzzle"] = "自动发电机谜题",
+["Helper Guy"] = "辅助工具",
+["Omg U Should Set cooldown 4-5s Trust.."] = "建议设置4-5秒冷却时间，亲测有效..",
+["Puzzle Highlight (just shows the correct line)"] = "谜题高亮（仅显示正确连线）",
+["Manual Dot Generator"] = "手动点连发电机",
+["Dot connect speed"] = "点连速度",
+["Manual Generator Button"] = "手动发电机按钮",
+["Thanks To Sphinx For the Script!"] = "感谢斯芬克斯提供脚本！",
+["Generator Farmer"] = "发电机挂机",
+["If get damage Server Hop"] = "受到伤害时跳服",
+["How much damage?"] = "触发伤害值？",
+["Server"] = "服务器",
+["Random"] = "随机",
+["The Farm uses Freeze what it does it freezes ur position for others. meaning others will be seeing u just standing there doing nothing. but in ur pov u will do generator. it really helps if u don't wanna get caught."] = "该挂机功能会冻结自身位置，其他玩家只会看到你原地不动，而你视角内仍可正常修理发电机，有效规避检测。",
+["Normal Block"] = "普通格挡",
+["Milestone Block"] = "进阶格挡",
+["Guest1337"] = "游客1337",
+["some random things"] = "杂项功能",
+["Auto Mini Game"] = "自动小游戏",
+["thanks Cryptic For the Source!"] = "感谢克里普提克提供源码！",
+["Anti Stun"] = "防眩晕",
+["Anti stats"] = "防数据记录",
+["Veeronica"] = "维罗妮卡",
+["try to catch me - veeronica"] = "来抓我啊 - 维罗妮卡",
+["Veeronica Auto TRICK"] = "维罗妮卡 自动特技",
+["Device"] = "设备",
+["Select device method for veeronica Auto TRICK"] = "为维罗妮卡自动特技选择设备适配方式",
+["Veeronica Skate Controller"] = "维罗妮卡 滑板控制器",
+["Killers Aimbot"] = "杀手自瞄",
+["How To Use???"] = "使用教程？？？",
+["First Turn on The aimbot than Look at the surviver u wanna lock on Than click the Aimbot or press V key to lock it"] = "先开启自瞄，看向目标幸存者，点击自瞄按钮或按下V键完成锁定",
+["info"] = "说明",
+["it was supposed to be made for all killers but it Mostly Work perfect on Slasher and John Doe and Guest666.. U can Use Noli , Coolkid , 1x too no problem"] = "本功能适配全杀手，在斩击者、无名氏、游客666身上效果最佳，诺利、酷小子、1x也可正常使用",
+["M1 Aimbot"] = "左键自瞄",
+["Duration Of Aimbot"] = "自瞄持续时长",
+["Lock Duration"] = "锁定时长",
+["Aimlock Mode"] = "锁定模式",
+["Char +"] = "角色锁定",
+["Dussaksr"] = "杜萨克",
+["Eliot"] = "埃利奥特",
+["Target Mode"] = "目标模式",
+["Nearest"] = "最近目标",
+["Inf Bloxy Cola"] = "无限布洛克斯可乐",
+["Read the tutorial"] = "请阅读教程",
+["Tutorial (Important)"] = "教程（重要）",
+["1) First Turn ON Inf Bloxy Cola"] = "1) 先开启无限布洛克斯可乐功能",
+["2) Find a Bloxy Cola in the Map (Use Esp item to find it)"] = "2) 在地图中找到布洛克斯可乐（可使用物品透视查找）",
+["3) Drink it and it will be inf bloxy cola"] = "3) 饮用后即可获得无限布洛克斯可乐",
+["BETA FEATURES"] = "测试功能",
+["These might Not Work As Expected Or Might bug!!"] = "功能可能异常或存在漏洞！",
+["Touch to Kill Killer"] = "触碰击杀杀手",
+["Whenever U Touch The Killer For a Few Seconds he Gets killed!!"] = "触碰杀手数秒即可将其击杀！",
+["Loop instant kill"] = "循环秒杀",
+["It loops Kills basically Endless.. Read below For More information"] = "循环执行击杀效果，近乎无限生效，详情见下文",
+["Helper gui"] = "辅助界面",
+["As you know Loop instant kill does a crazy move which is blatant."] = "循环秒杀动作特征明显，容易被察觉。",
+["So I recommend you to use it in match when the round is starting. the killer will get instant kill before the round even starts."] = "建议在对局开局时使用，可在回合正式开始前秒杀杀手。",
+["About Touch to Kill"] = "关于触碰击杀",
+["This is great if there are many people. You can just be sneaky and touch the killer nobody will know. BTW still use at ur own risk"] = "多人对局中实用性很高，可悄悄触碰杀手而不被发现，使用风险自负",
+["HITBOX EXPENDER"] = "攻击范围扩大",
+["Hitbox expender (beta)"] = "攻击范围扩大（测试版）",
+["Distance/Reach (max : 1 - 45)"] = "攻击距离（最大值：1-45）",
+["helper guy yez"] = "辅助小工具",
+["use maybe 2-3 if u want be not get caught by others ppl"] = "想要隐蔽使用建议设置数值2-3",
+["TwoTime"] = "双时",
+["Chance"] = "钱斯",
+["Stop Moving on Aim"] = "锁定目标时停止移动",
+["Shedlekey"] = "谢德莱基",
+["Character Lock"] = "角色锁定",
+["Char + Cam Lock"] = "角色+视角锁定",
+["Guesting Hub v2.6.9"] = "访客中心 v2.6.9",
+["By Veux/Veux67"] = "汉化者: <font color='#33FFEE'>Y</font><font color='#33EEFF'>i</font><font color='#33DDFF'>r</font><font color='#33CCFF'>d</font><font color='#33BBFF'>e</font><font color='#33AAFF'>X</font>",
+["Discord | Yaps"] = "Discord | 闲聊频道",
+["Updates"] = "更新日志",
+["Auto Block"] = "自动格挡",
+["Anti Bait Features"] = "防诱饵功能",
+["Stamina"] = "体力系统",
+["Player"] = "玩家设置",
+["Aimbots"] = "自瞄系统",
+["Exploits/Fun"] = "功能/娱乐",
+["Killers"] = "杀手设置",
+["Search"] = "搜索",
+["Veux 3.0"] = "Veux 3.0",
+["Member Count: 7918"] = "成员数：7918",
+["Online Count: 337"] = "在线人数：337",
+["Copy Discord Invite"] = "复制Discord邀请链接",
+["JOIN DISCORD SERVERRR"] = "加入Discord服务器",
+["Range Distance to Detect"] = "检测范围距离",
+["Sound time"] = "声音判定时长",
+["checks how long it should block a sound"] = "设置格挡声音的持续判定时间",
+["Ping checker"] = "延迟检测",
+["Helper Guy"] = "辅助提示",
+["I usually prefer U SHOULD try using 13 or 10"] = "建议尝试使用13或10",
+["Ping info"] = "延迟信息",
+["if green = all perfect for auto block, If yellow = mid still good, If red = Might Delay"] = "绿色=自动格挡状态完美，黄色=状态尚可，红色=可能存在延迟",
+["Range Customizer"] = "范围自定义",
+["Default is the default range and Custom look it for urself"] = "默认=使用原版范围，自定义=自行调整",
+["Default..."] = "默认...",
+["Front Size"] = "前方范围大小",
+["just size.. yez"] = "就是大小设置..",
+["Left and Right Side"] = "左右侧范围大小",
+["just size... each side yez"] = "就是大小设置.. 左右两侧",
+["Locked"] = "已锁定",
+["AUTO"] = "自动设置",
+["Auto Punch"] = "自动出拳",
+["punch delay"] = "出拳延迟",
+["Auto Block Mode"] = "自动格挡模式",
+["Gain Stamina"] = "体力恢复值",
+["Sprint Speed"] = "冲刺速度",
+["Stamina Settings"] = "体力设置",
+["Show Stamina Visual"] = "显示体力条",
+["Shows stamina on head"] = "在角色头顶显示体力值",
+["Non Holdable Sprinting (for Windows)"] = "非长按冲刺（适用于Windows端）",
+["Pick Aimbots"] = "选择自瞄类型",
+["Settings"] = "设置",
+["Prediction (0 - 10)"] = "预判值（0-10）",
+["Distance (1 - 50)"] = "锁定距离（1-50）",
+["Not works on Chance and Dussaksr"] = "不适用于Chance和Dussaksr",
+["Extra Settings"] = "额外设置",
+["Aim"] = "瞄准设置",
+["Enable Aimbot"] = "启用自瞄",
+["Infinite Stamina"] = "无限体力",
+["Min Stamina"] = "最低体力值",
+["Max Stamina"] = "最高体力值",
+["Drain Stamina"] = "体力消耗值",
+["info"] = "说明",
+["THE FACING CHECK only Works For Default Range"] = "朝向检测仅在默认范围模式下生效",
+["Wall Check"] = "墙体检测",
+["default Range Facing Check"] = "默认范围朝向检测",
+["Facing Dot"] = "朝向判定阈值",
+["Hitbox Dragging Tech"] = "碰撞箱拖拽技术",
+["Hitbox dragging speed"] = "碰撞箱拖拽速度",
+["Speed of the drag"] = "拖拽速度",
+["Hitbox dragging delay"] = "碰撞箱拖拽延迟",
+["time tu wait for drag"] = "拖拽等待时间",
+["Guest Fake Lag tech"] = "访客假延迟技术",
+["Move to Stop the Fake lag"] = "移动即可停止假延迟效果",
+["Default Range"] = "默认范围",
+["Customizer Range"] = "自定义范围",
+["Button / Key Toggle"] = "按键/按钮切换",
+["Remove Fog"] = "移除雾气",
+["Full Bright"] = "全局亮度",
+["Range Visualizer"] = "范围可视化"
+}
+local function translateText(text)
+    if not text or type(text) ~= "string" then return text end
+    if Translations[text] then return Translations[text] end
+    for en, cn in pairs(Translations) do
+        if text:find(en) then return text:gsub(en, cn) end
+    end
+    return text
+end
+
+local function translateAllElements()
+    local function translateGui(gui)
+        for _, element in ipairs(gui:GetDescendants()) do
+            if element:IsA("TextLabel") or element:IsA("TextButton") or element:IsA("TextBox") then
+                local currentText = element.Text
+                if currentText and currentText ~= "" then
+                    local translatedText = translateText(currentText)
+                    if translatedText ~= currentText then
+                        element.Text = translatedText
+                    end
+                end
+            end
+        end
+    end
+    
+    pcall(translateGui, game:GetService("CoreGui"))
+end
+
+local function setupListener()
+    local function connectToGui(gui)
+        gui.DescendantAdded:Connect(function(descendant)
+            if descendant:IsA("TextLabel") or descendant:IsA("TextButton") or descendant:IsA("TextBox") then
+                local currentText = descendant.Text
+                if currentText and currentText ~= "" then
+                    local translatedText = translateText(currentText)
+                    if translatedText ~= currentText then
+                        descendant.Text = translatedText
+                    end
+                end
+                
+                descendant:GetPropertyChangedSignal("Text"):Connect(function()
+                    local newText = descendant.Text
+                    if newText and newText ~= "" then
+                        local translatedText = translateText(newText)
+                        if translatedText ~= newText then
+                            descendant.Text = translatedText
+                        end
+                    end
+                end)
+            end
+        end)
+    end
+    
+    pcall(connectToGui, game:GetService("CoreGui"))
+end
+
+local function startTranslation()
+    translateAllElements()
+    setupListener()
+end
+
+local function loadScript()
+    local success, err = pcall(function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/LolnotaKid/project/refs/heads/main/AutoBLOCKKKWAHV1"))()
+    end)
+
+    if not success then
+        warn("加载失败:", err)
+    end
+end
+
+if RunScriptFirst then
+    loadScript()
+    startTranslation()
+else
+    startTranslation()
+    loadScript()
+end
