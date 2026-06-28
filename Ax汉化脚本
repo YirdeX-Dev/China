@@ -8,6 +8,7 @@ local Translations = {
         ["Miscs"]="杂项",
         ["Players"]="玩家",
         ["Settings"]="设置",
+        ["Exclude Players"] = "排除指定玩家",
         ["Red Light, Green Light"]="木头人",
         ["Auto Stop"]="自动停止",
         ["Disable Injury"]="移除受伤状态",
