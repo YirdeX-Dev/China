@@ -1,13 +1,38 @@
+local RunScriptFirst = false
+
 local Translations = {
-["Foxname - 99 NITF"] = "Foxname<font color='#33FFEE'>Y</font><font color='#33EEFF'>i</font><font color='#33DDFF'>r</font><font color='#33CCFF'>d</font><font color='#33BBFF'>e</font><font color='#33AAFF'>X</font><font color='#3399FF'>汉</font><font color='#3388FF'>化</font>",
-["Info"] = "信息",
-["Main"] = "主功能",
-["Bring"] = "强制拉取",
-["Teleport"] = "传送",
-["LocalPlayer"] = "本地玩家",
-["Mis"] = "杂项",
-["Tree"] = "树木",
-["Settings"] = "设置",
+["Amour"] = "工具名称",
+["Tp to Research Facility"] = "瞬移至研究设施",
+["Tp to Research Outpost"] = "瞬移至研究前哨站",
+["Tp to Sacrifice area"] = "瞬移至献祭区域",
+["Select Player"] = "选择目标玩家",
+["Tp to Selected Player"] = "瞬移到选中玩家",
+["Select NPC"] = "选择NPC",
+["Tp to NPC"] = "瞬移到选中NPC",
+["Refresh NPC List"] = "刷新NPC列表",
+["Alien Commander"] = "外星指挥官",
+["Alpha Wolf"] = "精英狼",
+["Bat"] = "蝙蝠",
+["Bear"] = "熊",
+["Bunny"] = "兔子",
+["Lost Child4"] = "迷失孩童4",
+["Mossy Wolf"] = "苔藓狼",
+["Wolf"] = "普通狼",
+["You need a Bear Trap to kill people. Place one nearby, then select a player and kill."] = "需放置捕熊陷阱才能击杀玩家，先在附近摆放陷阱，再选中玩家执行击杀",
+["Metal Section"] = "金属物资板块",
+["Select Metal"] = "选择金属物资",
+["Bring Metal"] = "获取选中金属道具",
+["Bring selected Metal items"] = "获取已勾选金属物品",
+["Last Planted"] = "上次种植坐标",
+["How to use"] = "使用说明",
+["You must have 1 sapling to be able to infinitely plant trees."] = "背包内至少携带1棵树苗，才可开启无限种树",
+["Consumes saplings from Items to plant trees infinitely"] = "消耗背包树苗道具实现无限种植树木",
+["即时 Proximity Prompt"] = "开启即时近距离交互弹窗",
+["Expand Map"] = "扩大地图可视范围",
+["Hide Big Trees"] = "隐藏大型树木",
+["Removes textures, particles, shadows, terrain, and accessories to boost FPS."] = "移除贴图、粒子特效、阴影、地形与饰品，提升游戏帧率",
+["Minimize GUI"] = "最小化功能界面",
+["Minimize Gui Keybind"] = "界面最小化快捷键",
 ["Developer"] = "开发者",
 ["Kill Aura"] = "杀戮光环",
 ["Kill Aura Range"] = "杀戮光环范围",
@@ -43,7 +68,6 @@ local Translations = {
 ["Teleport To Chest"] = "传送到宝箱",
 ["Open All Chests"] = "打开所有宝箱",
 ["Auto Open All Chests"] = "自动打开所有宝箱",
-["discord.gg/Foxname"] = "<font color='#33FFEE'>Y</font><font color='#33EEFF'>i</font><font color='#33DDFF'>r</font><font color='#33CCFF'>d</font><font color='#33BBFF'>e</font><font color='#33AAFF'>X</font><font color='#3399FF'>汉</font><font color='#3388FF'>化</font>",
 ["Info"] = "信息",
 ["Main"] = "主菜单",
 ["Bring"] = "获取",
@@ -244,53 +268,80 @@ local Translations = {
 ["Giant Sack"] = "巨型背包",
 ["Kunai"] = "苦无"
 }
-
-local keys = {}
-for k in pairs(Translations) do
-    table.insert(keys, k)
-end
-table.sort(
-    keys,
-    function(a, b)
-        return #a > #b
-    end
-)
-
-local function safeReplace(text, old, new)
-    local result = ""
-    local start = 1
-    while true do
-        local i, j = string.find(text, old, start, true)
-        if not i then
-            result = result .. string.sub(text, start)
-            break
-        end
-        result = result .. string.sub(text, start, i - 1) .. new
-        start = j + 1
-    end
-    return result
-end
-
 local function translateText(text)
-    if not text or type(text) ~= "string" then
-        return text
-    end
-    for _, k in ipairs(keys) do
-        text = safeReplace(text, k, Translations[k])
+    if not text or type(text) ~= "string" then return text end
+    if Translations[text] then return Translations[text] end
+    for en, cn in pairs(Translations) do
+        if text:find(en) then return text:gsub(en, cn) end
     end
     return text
 end
 
-local oldNewIndex
-oldNewIndex =
-    hookmetamethod(
-    game,
-    "__newindex",
-    function(self, key, value)
-        if key == "Text" and type(value) == "string" then
-            value = translateText(value)
+local function translateAllElements()
+    local function translateGui(gui)
+        for _, element in ipairs(gui:GetDescendants()) do
+            if element:IsA("TextLabel") or element:IsA("TextButton") or element:IsA("TextBox") then
+                local currentText = element.Text
+                if currentText and currentText ~= "" then
+                    local translatedText = translateText(currentText)
+                    if translatedText ~= currentText then
+                        element.Text = translatedText
+                    end
+                end
+            end
         end
-        return oldNewIndex(self, key, value)
     end
-)
-loadstring(game:HttpGet("https://raw.githubusercontent.com/caomod2077/Script/refs/heads/main/FoxnameHub.lua"))()
+    
+    pcall(translateGui, game:GetService("CoreGui"))
+end
+
+local function setupListener()
+    local function connectToGui(gui)
+        gui.DescendantAdded:Connect(function(descendant)
+            if descendant:IsA("TextLabel") or descendant:IsA("TextButton") or descendant:IsA("TextBox") then
+                local currentText = descendant.Text
+                if currentText and currentText ~= "" then
+                    local translatedText = translateText(currentText)
+                    if translatedText ~= currentText then
+                        descendant.Text = translatedText
+                    end
+                end
+                
+                descendant:GetPropertyChangedSignal("Text"):Connect(function()
+                    local newText = descendant.Text
+                    if newText and newText ~= "" then
+                        local translatedText = translateText(newText)
+                        if translatedText ~= newText then
+                            descendant.Text = translatedText
+                        end
+                    end
+                end)
+            end
+        end)
+    end
+    
+    pcall(connectToGui, game:GetService("CoreGui"))
+end
+
+local function startTranslation()
+    translateAllElements()
+    setupListener()
+end
+
+local function loadScript()
+    local success, err = pcall(function()
+        loadstring(game:HttpGet("https://foxname.top/loader"))()
+    end)
+
+    if not success then
+        warn("加载失败:", err)
+    end
+end
+
+if RunScriptFirst then
+    loadScript()
+    startTranslation()
+else
+    startTranslation()
+    loadScript()
+end
