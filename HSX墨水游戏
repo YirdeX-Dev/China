@@ -1,0 +1,298 @@
+local RunScriptFirst = false
+
+local Translations = {
+["HollyScriptX"] = "汉化墨水游戏脚本",
+["Stop On Red Light"] = "红灯自动停步",
+["Auto Teleport on Fall"] = "坠落自动传送",
+["Teleport To Spawn"] = "传送回出生点",
+["Auto Escape"] = "自动逃生",
+["ESP Mode"] = "透视显示模式",
+["Old"] = "旧版",
+["Free Quicksilver"] = "免费极速冲刺",
+["Unlock Fasster Sprint 6"] = "解锁6级高速冲刺",
+["Auto Skip Dialogue秒"] = "自动跳过对话",
+["Auto Collect Flashbang"] = "自动收集闪光弹",
+["Auto Collect Grenade"] = "自动收集手雷",
+["Freeze Rope"] = "绳索冻结",
+["Remove Balance Mini Game"] = "移除平衡小游戏",
+["Teleport Random Exit"] = "随机传送至逃生出口",
+["Search"] = "搜索",
+["Loader"] = "加载器",
+["Settings"] = "设置",
+["Auth"] = "授权",
+["Enter Key"] = "输入密钥",
+["Enter your key here"] = "在此输入你的密钥",
+["Check Key"] = "验证密钥",
+["Get Permanent Key"] = "获取永久密钥",
+["Join Discord"] = "加入Discord",
+["Lock"] = "锁定",
+["Toggle"] = "切换",
+["discord.gg/ZngpQTghP5 | Loader (by @t3e6)"] = "<font color='#33FFEE'>Y</font><font color='#33EEFF'>i</font><font color='#33DDFF'>r</font><font color='#33CCFF'>d</font><font color='#33BBFF'>e</font><font color='#33AAFF'>X</font><font color='#3399FF'>汉</font><font color='#3388FF'>化</font>",
+["Menu"] = "菜单",
+["Open Keybind Menu"] = "打开快捷键菜单",
+["Notification Side"] = "通知位置",
+["Right"] = "右侧",
+["Custom Cursor"] = "自定义光标",
+["Menu bind"] = "菜单快捷键",
+["Unload"] = "卸载",
+["Themes"] = "主题",
+["Background color"] = "背景颜色",
+["Main color"] = "主色调",
+["Accent color"] = "强调色",
+["Outline color"] = "边框颜色",
+["Font color"] = "字体颜色",
+["Theme list"] = "主题列表",
+["Mint Green"] = "薄荷绿",
+["Set as default"] = "设为默认",
+["Custom theme name"] = "自定义主题名称",
+["Create theme"] = "创建主题",
+["Custom themes"] = "自定义主题",
+["Load theme"] = "加载主题",
+["Overwrite theme"] = "覆盖主题",
+["Delete theme"] = "删除主题",
+["Refresh list"] = "刷新列表",
+["Reset default"] = "重置默认",
+["Configuration"] = "配置",
+["Config name"] = "配置名称",
+["Create config"] = "创建配置",
+["Config list"] = "配置列表",
+["Load config"] = "加载配置",
+["Overwrite config"] = "覆盖配置",
+["Delete config"] = "删除配置",
+["Set as autoload"] = "设为自动加载",
+["Reset autoload"] = "重置自动加载",
+["Current autoload config"] = "当前自动加载配置",
+["none"] = "无",
+["Games"] = "游戏功能",
+["切换"] = "开关",
+["Players"] = "玩家",
+["Guards"] = "守卫",
+["Main"] = "主菜单",
+["Remove Injury"] = "移除受伤效果",
+["Teleport to End"] = "传送到终点",
+["God Mode"] = "上帝模式",
+["Auto Escape for hider"] = "躲藏者自动逃脱",
+["Auto Pickup Keys"] = "自动拾取钥匙",
+["ESP Dropped Keys"] = "掉落钥匙透视",
+["ESP Exit Doors"] = "出口大门透视",
+["Auto Dodge"] = "自动躲避",
+["Spikes Kill"] = "尖刺击杀",
+["Teleport To Spikes"] = "传送到尖刺",
+["Delete Spikes"] = "删除尖刺",
+["Teleport to Hider"] = "传送到躲藏者",
+["Teleport to Seeker"] = "传送到搜寻者",
+["Keybind for TP hider:"] = "传送到躲藏者快捷键：",
+["Keybind for TP seeker:"] = "传送到搜寻者快捷键：",
+["None"] = "无",
+["攻城战"] = "拔河",
+["Tug of war OP functions soon!"] = "拔河模式OP功能即将推出！",
+["Anti Fall"] = "防坠落",
+["AntiHit"] = "防击中",
+["Fake Balance"] = "假平衡",
+["Remove Rope"] = "移除绳子",
+["Teleport to Start"] = "传送到起点",
+["Glass ESP"] = "玻璃透视",
+["Glass ESP Transparency"] = "玻璃透视透明度",
+["Anti-Break"] = "防碎裂",
+["达尔古娜"] = "抠糖饼",
+["Free Lighter"] = "免费打火机",
+["Anti Crack"] = "防破解",
+["Auto Dalgona V2"] = "自动抠糖饼 V2",
+["交际"] = "交际模式",
+["Void Kill"] = "虚空击杀",
+["Last Dinner"] = "最后的晚餐",
+["Zone Kill"] = "区域击杀",
+["Teleport To Safe Spot"] = "传送到安全点",
+["Sky Squid"] = "天空鱿鱼",
+["Auto Kill Guards"] = "自动击杀守卫",
+["Rapid Fire"] = "快速射击",
+["Hitbox + ESP Guards"] = "守卫碰撞箱+透视",
+["Guard Hitbox Size"] = "守卫碰撞箱大小",
+["Gun"] = "枪械功能",
+["Hitbox Expander"] = "碰撞箱扩大",
+["Hitbox Size"] = "碰撞箱大小",
+["AutoShoot"] = "自动射击",
+["Extras"] = "额外功能",
+["Free Guard"] = "免费守卫",
+["Lighter"] = "打火机",
+["更快 Sprint"] = "更快冲刺",
+["Strength boost"] = "力量加成",
+["Won boost"] = "胜利加成",
+["Type name..."] = "输入名称...",
+["Select"] = "选择",
+["Biggest Player"] = "体型最大玩家",
+["Players Stats"] = "玩家状态",
+["Wins"] = "胜利数",
+["Money"] = "金钱",
+["Equipped Powerne"] = "装备能力",
+["Guard Powerne"] = "守卫能力",
+["Level"] = "等级",
+["Power Spins"] = "能力抽奖次数",
+["Guard Spins"] = "守卫抽奖次数",
+["Bobux Donated"] = "捐赠R币",
+["VIP"] = "VIP",
+["Glass Manufact vision"] = "玻璃制作透视",
+["2x vote"] = "双倍投票",
+["Perm Guard"] = "永久守卫",
+["No"] = "无",
+["Miscs"] = "杂项功能",
+["Select Player"] = "选择玩家",
+["Teleport to Selected"] = "传送到选中玩家",
+["Spectate Selected"] = "观战选中玩家",
+["Stop Spectating"] = "停止观战",
+["Teleport to Nearest"] = "传送到最近玩家",
+["Keybind for TP to nearest:"] = "传送到最近玩家快捷键：",
+["Player"] = "玩家功能",
+["Speed Hack"] = "速度修改",
+["Speed Value"] = "速度值",
+["FOV Changer"] = "视角修改",
+["FOV Value"] = "视角值",
+["Fullbright"] = "全局亮度",
+["Ambience"] = "环境音效",
+["No Cooldown Proximity"] = "无冷却近战",
+["Flight"] = "飞行",
+["Fly Speed"] = "飞行速度",
+["Remove Stun"] = "移除眩晕效果",
+["Free Cam"] = "自由视角",
+["Custom Jump Power"] = "自定义跳跃力",
+["Custom Gravity"] = "自定义重力",
+["Gravity Value"] = "重力值",
+["Jump Power Value"] = "跳跃力值",
+["TP Through Walls"] = "穿墙传送",
+["Infinite Jump"] = "无限跳跃",
+["Search Emote"] = "搜索表情",
+["Type emote name"] = "输入表情名称",
+["Select Emote"] = "选择表情",
+["Play/Stop Emote"] = "播放/停止表情",
+["Combat"] = "战斗功能",
+["Players Attach"] = "玩家附着",
+["Face Target"] = "面向目标",
+["Desync"] = "状态同步",
+["Killaura"] = "杀戮光环",
+["Noclip"] = "穿墙",
+["Auto Complete [BETA]"] = "自动完成[测试版]",
+["Free Parkour Atrist"] = "免费跑酷艺术家",
+["Unlock faster sprint level 6"] = "解锁6级更快冲刺",
+["Auto Next Game"] = "自动下一局",
+["Players ESP"] = "玩家透视",
+["Teleport Up 100"] = "向上传送100",
+["Teleport Down 40"] = "向下传送40",
+["Safe Place on Low Health"] = "低血量传送到安全点",
+["AntiFall"] = "防坠落",
+["Auto Collect Bandage"] = "自动收集绷带",
+["Auto Vote"] = "自动投票",
+["Vote Option"] = "投票选项",
+["KeepPlaying"] = "继续游戏",
+["StopPlaying"] = "停止游戏",
+["Select Title"] = "选择称号",
+["Free Title (NOT FE)"] = "免费称号（非FE）",
+["Custom"] = "自定义",
+["Custom Clothes Color"] = "自定义衣服颜色",
+["Custom Wins"] = "自定义胜利数",
+["Custom Winstreak"] = "自定义连胜",
+["Custom 级别"] = "自定义级别",
+["Enter number"] = "输入数字",
+["Custom Win Value"] = "自定义胜利数值",
+["Custom Winstreak"] = "自定义连胜数值",
+["Custom Level Value"] = "自定义等级数值",
+["Gamepasses (NOT FE)"] = "游戏通行证（非FE）",
+["Private Server Plus"] = "私人服务器加成",
+["Free VIP"] = "免费VIP",
+["Auto Perfect Hit"] = "自动完美打击",
+["RAGE Auto QTE"] = "暴力自动QTE",
+["Legit Auto QTE"] = "安全自动QTE"
+}
+
+local function processTextComponent(gui, newText)
+    if gui:IsA("TextLabel") or gui:IsA("TextButton") or gui:IsA("TextBox") then
+        pcall(function()
+            gui.RichText = true
+            if gui:FindFirstChildOfClass("UITextSizeConstraint") then
+                gui.UITextSizeConstraint.MaxTextSize = gui.TextSize
+            end
+        end)
+    end
+    return newText
+end
+
+local function translateText(text)
+    if not text or type(text) ~= "string" then return text end
+    if Translations[text] then return Translations[text] end
+    for en, cn in pairs(Translations) do
+        if text:find(en) then return text:gsub(en, cn) end
+    end
+    return text
+end
+
+local function translateAllElements()
+    local function translateGui(gui)
+        for _, element in ipairs(gui:GetDescendants()) do
+            if element:IsA("TextLabel") or element:IsA("TextButton") or element:IsA("TextBox") then
+                local currentText = element.Text
+                if currentText and currentText ~= "" then
+                    local translatedText = translateText(currentText)
+                    if translatedText ~= currentText then
+                        element.Text = processTextComponent(element, translatedText)
+                    end
+                end
+            end
+        end
+    end
+    pcall(translateGui, game:GetService("CoreGui"))
+    local player = game:GetService("Players").LocalPlayer
+    if player and player:FindFirstChild("PlayerGui") then
+        pcall(translateGui, player.PlayerGui)
+    end
+end
+
+local function setupListener()
+    local function connectToGui(gui)
+        gui.DescendantAdded:Connect(function(descendant)
+            if descendant:IsA("TextLabel") or descendant:IsA("TextButton") or descendant:IsA("TextBox") then
+                local currentText = descendant.Text
+                if currentText and currentText ~= "" then
+                    local translatedText = translateText(currentText)
+                    if translatedText ~= currentText then
+                        descendant.Text = processTextComponent(descendant, translatedText)
+                    end
+                end
+                descendant:GetPropertyChangedSignal("Text"):Connect(function()
+                    local newText = descendant.Text
+                    if newText and newText ~= "" then
+                        local translatedText = translateText(newText)
+                        if translatedText ~= newText then
+                            descendant.Text = processTextComponent(descendant, translatedText)
+                        end
+                    end
+                end)
+            end
+        end)
+    end
+    pcall(connectToGui, game:GetService("CoreGui"))
+    local player = game:GetService("Players").LocalPlayer
+    if player and player:FindFirstChild("PlayerGui") then
+        pcall(connectToGui, player.PlayerGui)
+    end
+end
+
+local function startTranslation()
+    translateAllElements()
+    setupListener()
+end
+
+local function loadScript()
+    local success, err = pcall(function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/saosdkjiqwdjuqjudidw/HollyScriptX/refs/heads/main/main.lua"))()
+    end)
+    if not success then
+        warn("加载失败:", err)
+    end
+end
+
+if RunScriptFirst then
+    loadScript()
+    startTranslation()
+else
+    startTranslation()
+    loadScript()
+end
