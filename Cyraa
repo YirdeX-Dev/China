@@ -1,0 +1,206 @@
+local RunScriptFirst = false
+
+local Translations = {
+["Home"] = "主页",
+["Auto Farm"] = "自动刷取",
+["Misc"] = "杂项",
+["Server"] = "服务器",
+["Settings"] = "设置",
+
+["Enable Auto Farm"] = "开启自动刷取",
+["Auto Keep Sanity (100%)"] = "自动保持理智 (100%)",
+["Auto Visitor only"] = "仅访客模式",
+["Auto Treatment only"] = "仅治疗模式",
+["Priority for farm"] = "刷取优先级",
+["Priority Mode"] = "优先级模式",
+["Treatment"] = "治疗",
+["Class Selection"] = "职业选择",
+["Select Class"] = "选择职业",
+["Nurse"] = "护士",
+["Auto Buy Selected Class"] = "自动购买所选职业",
+["Auto Equip Selected Class"] = "自动装备所选职业",
+["Buy & Equip Now"] = "立即购买并装备",
+
+["Lobby Management"] = "大厅管理",
+["Auto Create Lobby"] = "开启自动创建大厅",
+["Skip Dialog Doctor"] = "跳过医生对话",
+["No"] = "否",
+["Room to Create"] = "创建房间号",
+["Room to Join"] = "加入房间号",
+["Min Players to Auto Start"] = "自动开始最低人数",
+["Join Selected Room Now"] = "立即加入所选房间",
+["Room Player Count"] = "房间玩家数",
+["Room 1:"] = "房间 1：",
+["players"] = "玩家",
+["Refresh Room Counts"] = "刷新房间人数",
+
+["Anomaly ESP"] = "异常 ESP",
+["ESP Skinwalker"] = "ESP 皮肤行者",
+["Skinwalker ESP"] = "皮肤行者 ESP",
+["ESP Patient"] = "ESP 病人",
+["Patient ESP"] = "病人 ESP",
+["ESP Player"] = "ESP 玩家",
+["Player ESP"] = "玩家 ESP",
+["Player"] = "玩家",
+["NoClip"] = "穿墙",
+["Speed"] = "速度",
+["Infinite Jump"] = "无限跳跃",
+["ESP Settings"] = "ESP 设置",
+["Show Name"] = "显示名字",
+["Show Distance"] = "显示距离",
+["Refresh All ESP"] = "刷新所有 ESP",
+["Clear All ESP"] = "清除所有 ESP",
+["Item Pickup"] = "物品拾取",
+["Item to Take"] = "要拾取的物品",
+["Eye Drops"] = "眼药水",
+["IV Drops"] = "静脉滴注",
+["Medkit"] = "医疗包",
+["Thermo"] = "体温计",
+["Bandages"] = "绷带",
+["Tools"] = "工具",
+["Fix Camera"] = "修复相机",
+["Auto Camera Fix"] = "自动修复相机",
+["Trigger Shutter Button"] = "触发快门按钮",
+["Teleport to Spawn"] = "传送到出生点",
+["Force Fill Sanity"] = "强制填满理智",
+["Skip Dialogue (Force)"] = "强制跳过对话",
+["Quickstart Round"] = "快速开始回合",
+["Ointment"] = "软膏",
+["Maple Syrup"] = "枫糖浆",
+["Cough Syrup"] = "止咳糖浆",
+["Medicine"] = "药品",
+["Herbs"] = "草药",
+["Take Item"] = "拾取物品",
+["Teleport to Shelf"] = "传送到货架",
+["Blue Shelf"] = "蓝色货架",
+["Red Shelf"] = "红色货架",
+["White Shelf"] = "白色货架",
+["Yellow Shelf"] = "黄色货架",
+["Green Shelf"] = "绿色货架",
+["Teleport to Selected Shelf"] = "传送到所选货架",
+
+["Performance"] = "性能",
+["Black Screen"] = "黑屏",
+["Disable 3D Rendering"] = "禁用 3D 渲染",
+["Remove Fog"] = "移除雾气",
+["Anti Lag (Reduces graphics)"] = "防卡顿 (降低画质)",
+["Interaction"] = "交互",
+["Instant Interact"] = "即时交互",
+
+["Config"] = "配置",
+["Config Name"] = "配置名称",
+["Default"] = "默认",
+["Save Config"] = "保存配置",
+["Config Name to Load"] = "要加载的配置名称",
+["Load Config"] = "加载配置",
+["Config Name to Delete"] = "要删除的配置名称",
+["Delete Config"] = "删除配置",
+["Reset Config to Default"] = "重置配置为默认",
+["Unload"] = "卸载",
+
+["Configuration"] = "配置管理",
+["Create config"] = "创建配置",
+["Config list"] = "配置列表",
+["Overwrite config"] = "覆盖配置",
+["Refresh list"] = "刷新列表",
+["Set as autoload"] = "设为自动加载",
+["Reset autoload"] = "重置自动加载",
+["Current autoload config:"] = "当前自动加载配置：",
+["none"] = "无",
+
+["Themes"] = "主题",
+["Background color"] = "背景颜色",
+["Main color"] = "主色调",
+["Accent color"] = "强调色",
+["Outline color"] = "轮廓颜色",
+["Font color"] = "字体颜色",
+["Font Face"] = "字体",
+["Code"] = "代码",
+["Background Image"] = "背景图片",
+["Theme list"] = "主题列表",
+["Set as default"] = "设为默认",
+["Custom theme name"] = "自定义主题名称",
+["Create theme"] = "创建主题",
+["Custom themes"] = "自定义主题",
+["Load theme"] = "加载主题",
+["Overwrite theme"] = "覆盖主题",
+["Delete theme"] = "删除主题",
+["Current default theme:"] = "当前默认主题：",
+}
+local function translateText(text)
+    if not text or type(text) ~= "string" then return text end
+    if Translations[text] then return Translations[text] end
+    for en, cn in pairs(Translations) do
+        if text:find(en) then return text:gsub(en, cn) end
+    end
+    return text
+end
+
+local function translateAllElements()
+    local function translateGui(gui)
+        for _, element in ipairs(gui:GetDescendants()) do
+            if element:IsA("TextLabel") or element:IsA("TextButton") or element:IsA("TextBox") then
+                local currentText = element.Text
+                if currentText and currentText ~= "" then
+                    local translatedText = translateText(currentText)
+                    if translatedText ~= currentText then
+                        element.Text = translatedText
+                    end
+                end
+            end
+        end
+    end
+    
+    pcall(translateGui, game:GetService("CoreGui"))
+end
+
+local function setupListener()
+    local function connectToGui(gui)
+        gui.DescendantAdded:Connect(function(descendant)
+            if descendant:IsA("TextLabel") or descendant:IsA("TextButton") or descendant:IsA("TextBox") then
+                local currentText = descendant.Text
+                if currentText and currentText ~= "" then
+                    local translatedText = translateText(currentText)
+                    if translatedText ~= currentText then
+                        descendant.Text = translatedText
+                    end
+                end
+                
+                descendant:GetPropertyChangedSignal("Text"):Connect(function()
+                    local newText = descendant.Text
+                    if newText and newText ~= "" then
+                        local translatedText = translateText(newText)
+                        if translatedText ~= newText then
+                            descendant.Text = translatedText
+                        end
+                    end
+                end)
+            end
+        end)
+    end
+    
+    pcall(connectToGui, game:GetService("CoreGui"))
+end
+
+local function startTranslation()
+    translateAllElements()
+    setupListener()
+end
+
+local function loadScript()
+    local success, err = pcall(function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/LynX99-9/komtolmmek2script/refs/heads/main/CyraaHub.lua", true))()
+    end)
+
+    if not success then
+        warn("加载失败:", err)
+    end
+end
+
+if RunScriptFirst then
+    loadScript()
+    startTranslation()
+else
+    startTranslation()
+    loadScript()
+end
