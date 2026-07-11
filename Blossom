@@ -1,0 +1,100 @@
+local RunScriptFirst = false
+
+local Translations = {
+["Blossom Scripts"] = "花开脚本",
+["Ink Game"] = "YirdeX汉化",
+["Features"] = "功能",
+["Settings"] = "设置",
+["H&S ESP"] = "捉迷藏透视",
+["Auto Bandage TP"] = "自动传送包扎",
+["RLGL Finish"] = "红灯关卡一键完成",
+["TP Lobby"] = "传送至大厅",
+["Reveal Glass"] = "显示隐形玻璃",
+["TP Safezone"] = "传送安全区",
+["Bring Guards"] = "召唤守卫",
+["Complete Jump Rope"] = "自动完成跳绳",
+["Select Player..."] = "选择玩家...",
+["Teleport"] = "传送",
+["Speed Boost"] = "速度增幅",
+["ESP All"] = "全物体透视",
+["Auto TP Bandage"] = "自动传送包扎",
+["Safezone"] = "安全区",
+["Rebellion"] = "召唤叛徒守卫"
+}
+local function translateText(text)
+    if not text or type(text) ~= "string" then return text end
+    if Translations[text] then return Translations[text] end
+    for en, cn in pairs(Translations) do
+        if text:find(en) then return text:gsub(en, cn) end
+    end
+    return text
+end
+
+local function translateAllElements()
+    local function translateGui(gui)
+        for _, element in ipairs(gui:GetDescendants()) do
+            if element:IsA("TextLabel") or element:IsA("TextButton") or element:IsA("TextBox") then
+                local currentText = element.Text
+                if currentText and currentText ~= "" then
+                    local translatedText = translateText(currentText)
+                    if translatedText ~= currentText then
+                        element.Text = translatedText
+                    end
+                end
+            end
+        end
+    end
+    
+    pcall(translateGui, game:GetService("CoreGui"))
+end
+
+local function setupListener()
+    local function connectToGui(gui)
+        gui.DescendantAdded:Connect(function(descendant)
+            if descendant:IsA("TextLabel") or descendant:IsA("TextButton") or descendant:IsA("TextBox") then
+                local currentText = descendant.Text
+                if currentText and currentText ~= "" then
+                    local translatedText = translateText(currentText)
+                    if translatedText ~= currentText then
+                        descendant.Text = translatedText
+                    end
+                end
+                
+                descendant:GetPropertyChangedSignal("Text"):Connect(function()
+                    local newText = descendant.Text
+                    if newText and newText ~= "" then
+                        local translatedText = translateText(newText)
+                        if translatedText ~= newText then
+                            descendant.Text = translatedText
+                        end
+                    end
+                end)
+            end
+        end)
+    end
+    
+    pcall(connectToGui, game:GetService("CoreGui"))
+end
+
+local function startTranslation()
+    translateAllElements()
+    setupListener()
+end
+
+local function loadScript()
+    local success, err = pcall(function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/xyzlovesyouuu/blossomscripts/refs/heads/main/inkgame"))()
+    end)
+
+    if not success then
+        warn("加载失败:", err)
+    end
+end
+
+if RunScriptFirst then
+    loadScript()
+    startTranslation()
+else
+    startTranslation()
+    loadScript()
+end
