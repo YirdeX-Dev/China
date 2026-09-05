@@ -2,6 +2,17 @@ local RunScriptFirst = false
 
 local Translations = {
 ["1x Trails Freeze Delay"] = "1x轨迹冻结延迟",
+["Inside Circle transparency"] = "内部圆圈透明度",
+["Outside circle transparency"] = "外部圆圈透明度",
+["Seeker Bulbs"] = "搜寻者灯泡",
+["Vines"] = "藤蔓",
+["Azure Plant Ranges"] = "Azure植物范围",
+["Azure Plants"] = "Azure植物",
+["Seeker Bulbs, Vines"] = "搜寻者灯泡, 藤蔓",
+["Bulb Range Color"] = "灯泡范围颜色",
+["Vine Range Color"] = "藤蔓范围颜色",
+["Plant Ring Thickness"] = "植物环厚度",
+["Plant Ring Max Distance"] = "植物环最大距离",
 ["1x Trails Expiry Time"] = "1x轨迹存续时长",
 [" Steer Strength"] = "吸附强度",
 ["Steer  Strength"] = "吸附强度",
