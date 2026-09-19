@@ -2,6 +2,10 @@ local RunScriptFirst = false
 
 local Translations = {
 ["1x Trails Freeze Delay"] = "1x轨迹冻结延迟",
+["Swing"] = "挥击",
+["BloxyCola"] = "可乐",
+["Medkit"] = "医疗包",
+["Generator"] = "发电机",
 ["Inside Circle transparency"] = "内部圆圈透明度",
 ["Outside circle transparency"] = "外部圆圈透明度",
 ["Seeker Bulbs"] = "搜寻者灯泡",
