@@ -1,6 +1,12 @@
 local RunScriptFirst = false
 
 local Translations = {
+["Map Objectives"] = "地图目标",
+["Objective Types"] = "目标类型",
+["Fruits, Orange, Graffiti"] = "水果, 橙子, 涂鸦",
+["Fruits"] = "水果",
+["Orange"] = "橙子",
+["Graffiti"] = "涂鸦",
 ["Auto Fill Gears"] = "自动填充齿轮",
 ["Unsupported"] = "不支持",
 ["Drag Speed"] = "拖拽速度",
